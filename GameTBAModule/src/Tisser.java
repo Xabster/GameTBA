@@ -1,3 +1,1 @@
-package spam;
-
 class Tisser { }
