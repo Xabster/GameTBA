@@ -82,7 +82,7 @@ public class Game {
 
     private void initEntities() {
 
-        int blocksize = 12;
+        int blocksize = 20;
 
         try (BufferedReader br = new BufferedReader(new FileReader("GameTBAModule/test.map"))) {
             int row = 0;
@@ -106,7 +106,9 @@ public class Game {
                             break;
                         }
                         case '?': { // sky
-                            entities.add(new Entity(col * blocksize, row * blocksize, blocksize, blocksize, getSprite("sky.gif")));
+                            Entity e = new Entity(col * blocksize, row * blocksize, blocksize, blocksize, getSprite("sky.gif"));
+                            e.setRotation(90f);
+                            entities.add(e);
                             break;
                         }
                     }

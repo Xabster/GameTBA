@@ -1,5 +1,6 @@
 package view;
 
+import org.lwjgl.opengl.GL11;
 import view.textures.Texture;
 import view.textures.TextureLoader;
 
@@ -9,48 +10,24 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class Sprite {
 
-    /** The texture that stores the image for this sprite */
+    /**
+     * The texture that stores the image for this sprite
+     */
     private Texture texture;
-
-    /** The width in pixels of this sprite */
-    private int			width;
-
-    /** The height in pixels of this sprite */
-    private int			height;
 
     /**
      * Create a new sprite from a specified image.
      *
      * @param loader the texture loader to use
-     * @param ref A reference to the image on which this sprite should be based
+     * @param ref    A reference to the image on which this sprite should be based
      */
     public Sprite(TextureLoader loader, String ref) {
         try {
             texture = loader.getTexture(ref);
-            width = texture.getImageWidth();
-            height = texture.getImageHeight();
         } catch (IOException ioe) {
             ioe.printStackTrace();
             System.exit(-1);
         }
-    }
-
-    /**
-     * Get the width of this sprite in pixels
-     *
-     * @return The width of this sprite in pixels
-     */
-    public int getWidth() {
-        return texture.getImageWidth();
-    }
-
-    /**
-     * Get the height of this sprite in pixels
-     *
-     * @return The height of this sprite in pixels
-     */
-    public int getHeight() {
-        return texture.getImageHeight();
     }
 
     /**
@@ -59,7 +36,7 @@ public class Sprite {
      * @param x The x location at which to draw this sprite
      * @param y The y location at which to draw this sprite
      */
-    public void draw(int x, int y) {
+    public void draw(int x, int y, int width, int height, float angle) {
         // store the current model matrix
         glPushMatrix();
 
@@ -67,7 +44,13 @@ public class Sprite {
         texture.bind();
 
         // translate to the right location and prepare to draw
-        glTranslatef(x, y, 0);
+        glTranslatef(x+width/2, y+height/2, 0);
+
+        if (angle != 0) {
+            glRotatef(angle, 0f, 0f, 1f);
+        }
+
+        glTranslatef(-width/2, -height/2, 0);
 
         // draw a quad textured to match the sprite
         glBegin(GL_QUADS);

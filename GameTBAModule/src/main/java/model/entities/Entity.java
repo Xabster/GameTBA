@@ -10,7 +10,7 @@ import java.awt.*;
 public class Entity {
 
     protected float posX, posY, width, height;
-    protected float angle;
+    protected float angle,dAngle;
     protected float velocityX, velocityY;
 
     protected Sprite sprite;
@@ -76,7 +76,7 @@ public class Entity {
         return angle;
     }
 
-    public void setAngle(float angle) {
+    public void setAbsoluteAngle(float angle) {
         this.angle = (float)(angle % (Math.PI*2));
     }
 
@@ -99,19 +99,20 @@ public class Entity {
     public void update(long delta) {
         posX += (delta * velocityX) / 1000;
         posY += (delta * velocityY) / 1000;
+        angle += (delta * dAngle) / 1000;
     }
 
     public void draw() {
-        sprite.draw((int) posX, (int) posY);
+        sprite.draw((int) posX, (int) posY, (int) width, (int) height, angle);
     }
 
-    public void move(float dx, float dy) {
+    public void moveRelative(float dx, float dy) {
         setPosX(getPosX() + dx);
         setPosY(getPosY() + dy);
     }
 
-    public void rotate(float dAngle) {
-        setAngle(getAngle() + dAngle);
+    public void setRotation(float dAngle) {
+        this.dAngle = dAngle;
     }
 
     public boolean collidesWith(Entity otherEntity) {
