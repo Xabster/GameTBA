@@ -1,5 +1,6 @@
 package model.entities;
 
+import model.Game;
 import view.Sprite;
 
 import java.awt.*;
@@ -10,12 +11,14 @@ import java.awt.*;
 public class Entity {
 
     protected float posX, posY, width, height;
-    protected float angle,dAngle;
+    protected float angle, dAngle;
     protected float velocityX, velocityY;
 
     protected Sprite sprite;
 
     protected Rectangle me = new Rectangle(), other = new Rectangle();
+
+    protected boolean moveable;
 
     public Entity(Sprite sprite) {
         this(0, 0, 0, 0, sprite);
@@ -38,6 +41,18 @@ public class Entity {
         this.angle = angle;
         this.velocityX = velocityX;
         this.velocityY = velocityY;
+    }
+
+    public Rectangle getOccupiedSpace() {
+        return new Rectangle(Math.round(posX), Math.round(posY), Math.round(width), Math.round(height));
+    }
+
+    public Sprite getSprite() {
+        return sprite;
+    }
+
+    public void setSprite(Sprite sprite) {
+        this.sprite = sprite;
     }
 
     public float getPosX() {
@@ -72,14 +87,6 @@ public class Entity {
         this.height = height;
     }
 
-    public float getAngle() {
-        return angle;
-    }
-
-    public void setAbsoluteAngle(float angle) {
-        this.angle = (float)(angle % (Math.PI*2));
-    }
-
     public float getVelocityX() {
         return velocityX;
     }
@@ -96,22 +103,20 @@ public class Entity {
         this.velocityY = velocityY;
     }
 
-    public void update(long delta) {
-        posX += (delta * velocityX) / 1000;
-        posY += (delta * velocityY) / 1000;
-        angle += (delta * dAngle) / 1000;
-    }
-
-    public void draw() {
-        sprite.draw((int) posX, (int) posY, (int) width, (int) height, angle);
-    }
-
     public void moveRelative(float dx, float dy) {
         setPosX(getPosX() + dx);
         setPosY(getPosY() + dy);
     }
 
-    public void setRotation(float dAngle) {
+    public void setAbsoluteAngle(float angle) {
+        this.angle = (float) (angle % (Math.PI * 2));
+    }
+
+    public float getCurrentAngle() {
+        return angle;
+    }
+
+    public void setAngularVelocity(float dAngle) {
         this.dAngle = dAngle;
     }
 
@@ -119,5 +124,44 @@ public class Entity {
         me.setBounds(Math.round(posX), Math.round(posY), Math.round(width), Math.round(height));
         other.setBounds(Math.round(otherEntity.getPosX()), Math.round(otherEntity.getPosY()), Math.round(otherEntity.getWidth()), Math.round(otherEntity.getHeight()));
         return me.intersects(other);
+    }
+
+    public boolean isMoveable() {
+        return moveable;
+    }
+
+    public void setMoveable(boolean moveable) {
+        this.moveable = moveable;
+    }
+
+    public void draw() {
+        sprite.draw((int) posX, (int) posY, (int) width, (int) height, angle);
+    }
+
+    public void update(long delta) {
+        if (moveable) {
+            velocityY += (delta * Game.GRAVITY) / 1000;
+            posX += (delta * velocityX) / 1000;
+            posY += (delta * velocityY) / 1000;
+        }
+        angle += (delta * dAngle) / 1000;
+    }
+
+    @Override
+    public String toString() {
+        return "Entity{" +
+                "posX=" + posX +
+                ", posY=" + posY +
+                ", width=" + width +
+                ", height=" + height +
+                ", angle=" + angle +
+                ", dAngle=" + dAngle +
+                ", velocityX=" + velocityX +
+                ", velocityY=" + velocityY +
+                ", sprite=" + sprite +
+                ", me=" + me +
+                ", other=" + other +
+                ", moveable=" + moveable +
+                '}';
     }
 }

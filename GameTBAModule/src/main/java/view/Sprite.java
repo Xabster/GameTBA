@@ -15,6 +15,8 @@ public class Sprite {
      */
     private Texture texture;
 
+    protected String ref;
+
     /**
      * Create a new sprite from a specified image.
      *
@@ -22,6 +24,7 @@ public class Sprite {
      * @param ref    A reference to the image on which this sprite should be based
      */
     public Sprite(TextureLoader loader, String ref) {
+        this.ref = ref;
         try {
             texture = loader.getTexture(ref);
         } catch (IOException ioe) {
@@ -43,14 +46,13 @@ public class Sprite {
         // bind to the appropriate texture for this sprite
         texture.bind();
 
-        // translate to the right location and prepare to draw
-        glTranslatef(x+width/2, y+height/2, 0);
+        glTranslatef(x, y, 0);
 
         if (angle != 0) {
+            glTranslatef(width/2, height/2, 0);
             glRotatef(angle, 0f, 0f, 1f);
+            glTranslatef(-width/2, -height/2, 0);
         }
-
-        glTranslatef(-width/2, -height/2, 0);
 
         // draw a quad textured to match the sprite
         glBegin(GL_QUADS);
@@ -71,5 +73,13 @@ public class Sprite {
 
         // restore the model view matrix to prevent contamination
         glPopMatrix();
+    }
+
+    @Override
+    public String toString() {
+        return "Sprite{" +
+                "texture=" + texture +
+                ", ref='" + ref + '\'' +
+                '}';
     }
 }
