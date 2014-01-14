@@ -6,9 +6,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Created by Xabster on 08-01-14.
- */
 public class CompoundEntity extends Entity {
 
     protected List<Entity> children = new ArrayList<>();

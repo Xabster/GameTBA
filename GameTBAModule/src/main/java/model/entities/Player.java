@@ -2,9 +2,6 @@ package model.entities;
 
 import view.Sprite;
 
-/**
- * Created by Xabster on 11-01-14.
- */
 public class Player extends Entity {
     public Player(Sprite sprite) {
         super(sprite);

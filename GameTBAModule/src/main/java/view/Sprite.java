@@ -1,6 +1,5 @@
 package view;
 
-import org.lwjgl.opengl.GL11;
 import view.textures.Texture;
 import view.textures.TextureLoader;
 

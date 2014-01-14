@@ -1,9 +1,5 @@
 package view.textures;
 
-/**
- * Created by Xabster on 08-01-14.
- */
-
 import static org.lwjgl.opengl.GL11.*;
 
 /**

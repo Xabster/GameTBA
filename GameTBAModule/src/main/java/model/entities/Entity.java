@@ -5,9 +5,6 @@ import view.Sprite;
 
 import java.awt.*;
 
-/**
- * Created by Xabster on 08-01-14.
- */
 public class Entity {
 
     protected float posX, posY, width, height;
@@ -29,7 +26,7 @@ public class Entity {
     }
 
     public Entity(float posX, float posY, float width, float height, Sprite sprite, float velocityX, float velocityY) {
-        this(posX, posY, width, height, sprite, velocityX, velocityY, 0);
+        this(posX, posY, width, height, sprite, 0, velocityX, velocityY);
     }
 
     public Entity(float posX, float posY, float width, float height, Sprite sprite, float angle, float velocityX, float velocityY) {
@@ -135,7 +132,9 @@ public class Entity {
     }
 
     public void draw() {
-        sprite.draw((int) posX, (int) posY, (int) width, (int) height, angle);
+        if (sprite != null) {
+            sprite.draw((int) posX, (int) posY, (int) width, (int) height, angle);
+        }
     }
 
     public void update(long delta) {
