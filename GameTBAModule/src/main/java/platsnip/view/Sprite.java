@@ -1,7 +1,7 @@
-package view;
+package platsnip.view;
 
-import view.textures.Texture;
-import view.textures.TextureLoader;
+import platsnip.view.textures.Texture;
+import platsnip.view.textures.TextureLoader;
 
 import java.io.IOException;
 
@@ -39,7 +39,7 @@ public class Sprite {
      * @param y The y location at which to draw this sprite
      */
     public void draw(int x, int y, int width, int height, float angle) {
-        // store the current model matrix
+        // store the current platsnip.model matrix
         glPushMatrix();
 
         // bind to the appropriate texture for this sprite
@@ -70,7 +70,7 @@ public class Sprite {
         }
         glEnd();
 
-        // restore the model view matrix to prevent contamination
+        // restore the platsnip.model platsnip.view matrix to prevent contamination
         glPopMatrix();
     }
 

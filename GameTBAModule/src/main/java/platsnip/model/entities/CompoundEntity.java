@@ -1,6 +1,6 @@
-package model.entities;
+package platsnip.model.entities;
 
-import view.Sprite;
+import platsnip.view.Sprite;
 
 import java.util.ArrayList;
 import java.util.Collections;

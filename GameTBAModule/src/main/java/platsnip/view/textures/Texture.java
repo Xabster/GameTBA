@@ -1,4 +1,4 @@
-package view.textures;
+package platsnip.view.textures;
 
 import static org.lwjgl.opengl.GL11.*;
 

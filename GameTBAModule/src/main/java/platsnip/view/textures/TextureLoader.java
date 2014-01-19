@@ -1,4 +1,4 @@
-package view.textures;
+package platsnip.view.textures;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -32,12 +32,12 @@ public class TextureLoader {
     private HashMap<String, Texture> table = new HashMap<>();
 
     /**
-     * The colour model including alpha for the GL image
+     * The colour platsnip.model including alpha for the GL image
      */
     private ColorModel glAlphaColorModel;
 
     /**
-     * The colour model for the GL image
+     * The colour platsnip.model for the GL image
      */
     private ColorModel glColorModel;
 
