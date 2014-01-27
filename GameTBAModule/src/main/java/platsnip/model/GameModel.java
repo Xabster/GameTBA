@@ -4,18 +4,24 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import platsnip.model.entities.Entity;
 import platsnip.view.Sprite;
+import platsnip.view.textures.TextureLoader;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
 public class GameModel {
-    public State integrate(State currentState, long time, long deltaTime) {
 
+    private TextureLoader textureLoader = new TextureLoader();
+
+    public State integrate(State currentState, long time, long deltaTime) {
         for (Entity entity : currentState.listEntities()) {
             entity.update(deltaTime);
             entity.draw();
         }
+
+        currentState.getPlayer().update(deltaTime);
+        currentState.getPlayer().draw();
 
         for (Entity thisEntity : currentState.listEntities()) {
             if (thisEntity.isMoveable()) {
@@ -39,11 +45,13 @@ public class GameModel {
 
         // apply inputs/physics/logic
 
-        return null;
+        return currentState;
     }
 
     public State createNew() {
-        return null;
+        State state = new State();
+        loadMapToState("test.map", state);
+        return state;
     }
 
     public void pollInput(State currentState) {

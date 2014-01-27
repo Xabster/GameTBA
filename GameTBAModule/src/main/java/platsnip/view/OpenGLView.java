@@ -33,7 +33,6 @@ public class OpenGLView implements View {
         if ((Display.isCloseRequested() || Keyboard.isKeyDown(Keyboard.KEY_ESCAPE))) {
             System.exit(-1);
         }
-        //Display.sync(60);
     }
 
     @Override

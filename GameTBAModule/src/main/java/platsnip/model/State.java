@@ -11,7 +11,7 @@ public class State {
 
     private List<Entity> entities = new ArrayList<>(); // consider different collection - maybe HashSet?
 
-    public static final int GRAVITY = 200;
+    public static final int GRAVITY = 100;
 
     public List<Entity> listEntities() {
         return entities;

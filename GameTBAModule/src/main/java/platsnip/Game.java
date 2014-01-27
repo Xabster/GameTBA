@@ -37,15 +37,18 @@ public class Game {
 
             timeAccumulator += frameTime;
 
+            view.render(state);
+
             while (timeAccumulator >= dt) {
                 state = gameModel.integrate(state, time, dt);
                 timeAccumulator -= dt;
                 time += dt;
             }
 
-            view.render(state);
+
 
             Display.update();
+            Display.sync(60);
         }
 
         Display.destroy();
